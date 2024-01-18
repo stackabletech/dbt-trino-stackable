@@ -1,0 +1,42 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_trino_iceberg'
+version: '1.0.0'
+config-version: 2
+
+vars:
+  dbt_trino_iceberg:
+    highest_ship_date: '1998-12-01'
+  
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_trino_iceberg'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+models:
+  dbt_trino_iceberg:
+    enabled: true
+    database: lakehouse
+    # schema: dbt2
+    materialized: table
+    on_table_exists: drop
+    file_format: iceberg
+    
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['dbt_trino_iceberg', 'trino_utils', 'dbt_utils']

@@ -1,0 +1,4 @@
+packages:
+- package: starburstdata/trino_utils
+  version: 0.6.0
+sha1_hash: 01f0b8382c233e5649bf169dece5ccd1f4634615
